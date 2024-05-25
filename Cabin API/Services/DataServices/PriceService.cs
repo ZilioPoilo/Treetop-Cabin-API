@@ -9,7 +9,7 @@ namespace Cabin_API.Services.DataServices
 
         public PriceService(IConfiguration configuration, MongoDbConnectionService connectionService)
         {
-            var collection_name = configuration.GetSection("MongoDB:TablePrices").Get<string>();
+            string collection_name = configuration.GetSection("MongoDB:TablePrices").Get<string>();
             _collection = connectionService.Database.GetCollection<Price>(collection_name);
         }
 
@@ -23,7 +23,7 @@ namespace Cabin_API.Services.DataServices
         {
             var filter = Builders<Price>.Filter.Empty;
             var sort = Builders<Price>.Sort.Descending(p => p.Date);
-            var latestPrice = await _collection.Find(filter)
+            Price latestPrice = await _collection.Find(filter)
                                                .Sort(sort)
                                                .FirstOrDefaultAsync();
             return latestPrice;

@@ -9,7 +9,7 @@ namespace Cabin_API.Services.DataServices
 
         public CabinService(IConfiguration configuration, MongoDbConnectionService connectionService)
         {
-            var collection_name = configuration.GetSection("MongoDB:TableCabins").Get<string>();
+            string collection_name = configuration.GetSection("MongoDB:TableCabins").Get<string>();
             _collection = connectionService.Database.GetCollection<Cabin>(collection_name);
         }
 
@@ -22,20 +22,21 @@ namespace Cabin_API.Services.DataServices
         public async Task<bool> DeleteAsync(int id)
         {
             var filter = Builders<Cabin>.Filter.Eq("Id", id);
-            var model = await _collection.FindOneAndDeleteAsync(filter);
+            Cabin model = await _collection.FindOneAndDeleteAsync(filter);
             return model != null;
         }
 
         public async Task<Cabin> GetByIdAsync(int? id = 1)
         {
             var filter = Builders<Cabin>.Filter.Eq("Id", id);
-            var model = await _collection.Find(filter).FirstOrDefaultAsync();
+            Cabin model = await _collection.Find(filter).FirstOrDefaultAsync();
             return model;
         }
 
         public async Task<List<Cabin>> GetAsync()
         {
-            return await _collection.Find(_ => true).ToListAsync();
+            List<Cabin> result = await _collection.Find(_ => true).ToListAsync();
+            return result;
         }
 
         public async Task<Cabin> PutAsync(Cabin model)

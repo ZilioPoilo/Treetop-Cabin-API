@@ -8,6 +8,6 @@ namespace Cabin_API.Dtos
         [Required]
         public int Id { get; set; }
 
-        public string[]? Reservations { get; set; } = null!;
+        public string[]? Reservations { get; set; }
     }
 }

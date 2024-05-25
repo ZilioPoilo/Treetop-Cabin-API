@@ -26,12 +26,14 @@ namespace Cabin_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PriceDto priceDto)
         {
-            var result = await _priceService.CreateAsync(_mapper.Map<Price>(priceDto));
+            Price result = await _priceService.CreateAsync(_mapper.Map<Price>(priceDto));
 
             if (result == null)
                 return StatusCode(400, new ErrorDto("Server error"));
 
-            return StatusCode(200);
+            PriceDto dto = _mapper.Map<PriceDto>(result);
+
+            return StatusCode(200, result);
         }
 
         [HttpGet]

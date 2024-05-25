@@ -27,12 +27,12 @@ namespace Cabin_API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CabinDto cabinDto)
         {
-            var result = await _cabinService.GetByIdAsync(cabinDto.Id);
+            Cabin result = await _cabinService.GetByIdAsync(cabinDto.Id);
             if (result != null)
                 return StatusCode(400, new ErrorDto("Cabin already exists"));
 
-            var model = await _cabinService.CreateAsync(_mapper.Map<Cabin>(cabinDto));
-            var dto = _mapper.Map<CabinDto>(model);
+            Cabin model = await _cabinService.CreateAsync(_mapper.Map<Cabin>(cabinDto));
+            CabinDto dto = _mapper.Map<CabinDto>(model);
 
             return StatusCode(200, dto);
         }
@@ -44,7 +44,7 @@ namespace Cabin_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute(Name = "id")] int id)
         {
-            var model = await _cabinService.GetByIdAsync(id);
+            Cabin model = await _cabinService.GetByIdAsync(id);
 
             if (model == null)
                 return StatusCode(404, new ErrorDto("Cabin not found"));
@@ -61,13 +61,13 @@ namespace Cabin_API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] CabinDto cabinDto)
         {
-            var model = await _cabinService.GetByIdAsync(cabinDto.Id);
+            Cabin model = await _cabinService.GetByIdAsync(cabinDto.Id);
 
             if (model == null)
                 return StatusCode(404, new ErrorDto("Cabin not found"));
 
             model = await _cabinService.PutAsync(_mapper.Map<Cabin>(cabinDto));
-            var dto = _mapper.Map<CabinDto>(model);
+            cabinDto dto = _mapper.Map<CabinDto>(model);
 
             return StatusCode(200, model);
         }
@@ -92,7 +92,7 @@ namespace Cabin_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute(Name = "id")] int id)
         {
-            var model = await _cabinService.GetByIdAsync(id);
+            Cabin model = await _cabinService.GetByIdAsync(id);
 
             if (model == null)
                 return StatusCode(404, new ErrorDto("Cabin not found"));

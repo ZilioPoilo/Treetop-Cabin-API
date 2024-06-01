@@ -40,6 +40,7 @@ builder.Services.AddSingleton<PriceService>();
 builder.Services.AddMassTransit(options =>
 {
     options.AddConsumer<GetPriceConsumer>();
+    options.AddConsumer<GetCabinsCountconsumer>();
     options.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("cabin-api", false));
 
     options.UsingRabbitMq((context, config) =>

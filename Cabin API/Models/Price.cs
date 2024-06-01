@@ -23,10 +23,10 @@ namespace Cabin_API.Models
         public int Autumn { get; set; } = 0;
 
         [Required]
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public int GetPrice()
-        {
+        public int GetPrice(DateTime Date)
+        {   
             DateTime springStart = new DateTime(Date.Year, 3, 20);
             DateTime summerStart = new DateTime(Date.Year, 6, 21);
             DateTime fallStart = new DateTime(Date.Year, 9, 23);

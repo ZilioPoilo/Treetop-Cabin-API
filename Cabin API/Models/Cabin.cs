@@ -9,7 +9,5 @@ namespace Cabin_API.Models
     {
         [Required]
         public int Id { get; set; }
-
-        public string[]? Reservations { get; set; }
     }
 }

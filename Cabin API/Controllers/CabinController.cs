@@ -67,7 +67,7 @@ namespace Cabin_API.Controllers
                 return StatusCode(404, new ErrorDto("Cabin not found"));
 
             model = await _cabinService.PutAsync(_mapper.Map<Cabin>(cabinDto));
-            cabinDto dto = _mapper.Map<CabinDto>(model);
+            CabinDto dto = _mapper.Map<CabinDto>(model);
 
             return StatusCode(200, model);
         }

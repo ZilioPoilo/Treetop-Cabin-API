@@ -4,6 +4,8 @@ namespace Cabin_API.Dtos
 {
     public class PriceDto
     {
+        public int? Id { get; set; }
+
         [Required]
         public int Winter { get; set; } = 0;
 

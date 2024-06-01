@@ -33,14 +33,14 @@ namespace Cabin_API.Controllers
 
             PriceDto dto = _mapper.Map<PriceDto>(result);
 
-            return StatusCode(200, result);
+            return StatusCode(200, dto);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromBody] DateTime departure)
         {
             Price price = await _priceService.GetAsync();
-            int currentPrice = price.GetPrice();
+            int currentPrice = price.GetPrice(departure);
             return StatusCode(200, currentPrice);
         }
     }

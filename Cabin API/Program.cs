@@ -1,8 +1,9 @@
 using Cabin_API.AppMapping;
+using Cabin_API.MassTransit.Consumers;
 using Cabin_API.Services;
 using Cabin_API.Services.DataServices;
+using MassTransit;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,24 @@ builder.Services.AddSingleton<MongoDbConnectionService>();
 builder.Services.AddSingleton<CabinService>();
 builder.Services.AddSingleton<PriceService>();
 
+builder.Services.AddMassTransit(options =>
+{
+    options.AddConsumer<GetPriceConsumer>();
+    options.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("cabin-api", false));
+
+    options.UsingRabbitMq((context, config) =>
+    {
+        var host = builder.Configuration.GetSection("RabbitMq:Host").Get<string>();
+
+        config.Host(host, h =>
+        {
+            h.Username(builder.Configuration.GetSection("RabbitMq:Username").Get<string>());
+            h.Password(builder.Configuration.GetSection("RabbitMq:Password").Get<string>());
+        });
+
+        config.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 

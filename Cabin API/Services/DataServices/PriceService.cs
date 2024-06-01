@@ -22,7 +22,7 @@ namespace Cabin_API.Services.DataServices
         public async Task<Price> GetAsync()
         {
             var filter = Builders<Price>.Filter.Empty;
-            var sort = Builders<Price>.Sort.Descending(p => p.Date);
+            var sort = Builders<Price>.Sort.Descending(p => p.CreatedAt);
             Price latestPrice = await _collection.Find(filter)
                                                .Sort(sort)
                                                .FirstOrDefaultAsync();

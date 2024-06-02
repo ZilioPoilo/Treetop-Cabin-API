@@ -28,5 +28,12 @@ namespace Cabin_API.Services.DataServices
                                                .FirstOrDefaultAsync();
             return latestPrice;
         }
+
+        public async Task<DeleteResult> DeleteByIdAsync(string id)
+        {
+            var filter = Builders<Price>.Filter.Eq(p => p.Id, id);
+            DeleteResult result = await _collection.DeleteOneAsync(filter);
+            return result;
+        }
     }
 }

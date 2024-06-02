@@ -4,6 +4,7 @@ using Cabin_API.Models;
 using Cabin_API.Services.DataServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace Cabin_API.Controllers
 {
@@ -36,12 +37,13 @@ namespace Cabin_API.Controllers
             return StatusCode(200, dto);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromBody] DateTime departure)
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeleteById([FromBody] string id)
         {
-            Price price = await _priceService.GetAsync();
-            int currentPrice = price.GetPrice(departure);
-            return StatusCode(200, currentPrice);
+            DeleteResult result = await _priceService.DeleteByIdAsync(id);
+            if (result.DeletedCount == 0)
+                return StatusCode(404, new ErrorDto("No price found"));
+            return StatusCode(200);
         }
     }
 }

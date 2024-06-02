@@ -36,6 +36,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddSingleton<MongoDbConnectionService>();
 builder.Services.AddSingleton<CabinService>();
 builder.Services.AddSingleton<PriceService>();
+builder.Services.AddSingleton<PromocodeService>();
 
 builder.Services.AddMassTransit(options =>
 {

@@ -10,6 +10,7 @@ namespace Cabin_API.AppMapping
         {
             CreateMap<Cabin, CabinDto>().ReverseMap();
             CreateMap<Price, PriceDto>().ReverseMap();
+            CreateMap<Promocode, PromocodeDto>().ReverseMap();
         }
     }
 }

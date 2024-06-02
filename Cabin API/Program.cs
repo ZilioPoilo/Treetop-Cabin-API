@@ -1,5 +1,7 @@
 using Cabin_API.AppMapping;
-using Cabin_API.MassTransit.Consumers;
+using Cabin_API.MassTransit.Consumers.Cabin;
+using Cabin_API.MassTransit.Consumers.Price;
+using Cabin_API.MassTransit.Consumers.Promocode;
 using Cabin_API.Services;
 using Cabin_API.Services.DataServices;
 using MassTransit;
@@ -42,6 +44,7 @@ builder.Services.AddMassTransit(options =>
 {
     options.AddConsumer<GetPriceConsumer>();
     options.AddConsumer<GetCabinsCountconsumer>();
+    options.AddConsumer<PutPromocodeUsesConsumer>();
     options.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("cabin-api", false));
 
     options.UsingRabbitMq((context, config) =>

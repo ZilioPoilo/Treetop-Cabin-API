@@ -1,9 +1,9 @@
-﻿using Cabin_API.MassTransit.Events;
-using Cabin_API.MassTransit.Responses;
+﻿using Cabin_API.MassTransit.Events.Price;
+using Cabin_API.MassTransit.Responses.Price;
 using Cabin_API.Services.DataServices;
 using MassTransit;
 
-namespace Cabin_API.MassTransit.Consumers
+namespace Cabin_API.MassTransit.Consumers.Price
 {
     public class GetPriceConsumer : IConsumer<GetPriceEvent>
     {

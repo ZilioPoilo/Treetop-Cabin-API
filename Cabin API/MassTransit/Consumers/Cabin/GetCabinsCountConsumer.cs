@@ -1,10 +1,10 @@
-﻿using Cabin_API.MassTransit.Events;
-using Cabin_API.MassTransit.Responses;
+﻿using Cabin_API.MassTransit.Events.Cabin;
+using Cabin_API.MassTransit.Responses.Cabin;
 using Cabin_API.Models;
 using Cabin_API.Services.DataServices;
 using MassTransit;
 
-namespace Cabin_API.MassTransit.Consumers
+namespace Cabin_API.MassTransit.Consumers.Cabin
 {
     public class GetCabinsCountconsumer : IConsumer<GetCabinsCountEvent>
     {
@@ -18,7 +18,7 @@ namespace Cabin_API.MassTransit.Consumers
 
         public async Task Consume(ConsumeContext<GetCabinsCountEvent> context)
         {
-            List<Cabin> result = await _cabinService.GetAsync();
+            List<Models.Cabin> result = await _cabinService.GetAsync();
 
             GetCabinsCountResponse response = new GetCabinsCountResponse()
             {
